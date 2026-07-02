@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: cybershield-ids-ips
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --worker-class eventlet -w 1 --bind 0.0.0.0:$PORT app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: "False"
+      - key: AUTO_START_CAPTURE
+        value: "false"
+      - key: DEFAULT_ADMIN_USERNAME
+        value: admin
+      - key: DEFAULT_ADMIN_PASSWORD
+        value: admin123
+      - key: LOG_LEVEL
+        value: INFO
+      - key: SOCKETIO_ASYNC_MODE
+        value: eventlet

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% set active_page = "packets" %}
+{% block title %}Packet Capture - CyberShield{% endblock %}
+{% block page_title %}Packet Capture{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Live Packet Sniffer</h1>
+    <p>Real-time TCP / UDP / ICMP / ARP / DNS traffic capture</p>
+  </div>
+  <div class="flex gap-8">
+    <button class="btn" id="startSnifferBtn"><i class="fa-solid fa-play"></i> Start</button>
+    <button class="btn btn-danger" id="stopSnifferBtn"><i class="fa-solid fa-stop"></i> Stop</button>
+  </div>
+</div>
+
+<div class="grid grid-4 mb-16">
+  <div class="card stat-card">
+    <div class="stat-label">Status</div>
+    <div class="stat-value accent" id="pcStatus" style="font-size:18px;">--</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-label">Interface</div>
+    <div class="stat-value" style="font-size:16px;" id="pcInterface">--</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-label">Total Captured</div>
+    <div class="stat-value" id="pcTotal">0</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-label">Protocols Seen</div>
+    <div class="stat-value" style="font-size:16px;" id="pcProtocols">--</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="filters-bar">
+    <select class="form-control" id="protocolFilter">
+      <option value="">All Protocols</option>
+      <option value="TCP">TCP</option>
+      <option value="UDP">UDP</option>
+      <option value="ICMP">ICMP</option>
+      <option value="ARP">ARP</option>
+      <option value="DNS">DNS</option>
+    </select>
+    <input type="text" class="form-control" id="ipFilter" placeholder="Filter by source IP...">
+    <button class="btn" id="pauseFeedBtn"><i class="fa-solid fa-pause"></i> Pause Live Feed</button>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Timestamp</th><th>Source IP</th><th>Destination IP</th><th>Protocol</th>
+          <th>Src Port</th><th>Dst Port</th><th>Size</th>
+        </tr>
+      </thead>
+      <tbody id="packetsTableBody">
+        <tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-satellite-dish"></i>Waiting for packets...</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/packets.js') }}"></script>
+{% endblock %}

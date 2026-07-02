@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% set active_page = "fim" %}
+{% block title %}File Integrity - CyberShield{% endblock %}
+{% block page_title %}File Integrity Monitoring{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>File Integrity Monitoring</h1>
+    <p>SHA-256 based change detection for critical files</p>
+  </div>
+  <div class="flex gap-8">
+    <button class="btn" id="scanNowBtn"><i class="fa-solid fa-arrows-rotate"></i> Scan Now</button>
+    <button class="btn btn-primary" id="addFileBtn"><i class="fa-solid fa-plus"></i> Add File</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>File Path</th><th>SHA-256</th><th>Status</th><th>Last Checked</th><th>Action</th></tr>
+      </thead>
+      <tbody id="fimTableBody">
+        <tr><td colspan="5"><div class="empty-state"><i class="fa-solid fa-file-shield"></i>No files monitored yet</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="addFileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center;">
+  <div class="card" style="width:460px; max-width:90vw;">
+    <div class="card-header">
+      <span class="card-title">Add File to Monitor</span>
+      <span class="icon-btn" onclick="closeAddFileModal()"><i class="fa-solid fa-xmark"></i></span>
+    </div>
+    <form id="addFileForm">
+      <div class="form-group">
+        <label class="form-label">Absolute File Path</label>
+        <input type="text" class="form-control" id="fimPathInput" placeholder="/etc/passwd or C:\Windows\System32\drivers\etc\hosts" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Start Monitoring</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/fim.js') }}"></script>
+{% endblock %}

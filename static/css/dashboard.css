@@ -1,0 +1,51 @@
+/* CyberShield -- Dashboard page */
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+@media (max-width: 1200px) {
+  .dash-grid { grid-template-columns: 1fr; }
+}
+
+.chart-card canvas { max-height: 260px; }
+
+.threat-feed { display: flex; flex-direction: column; gap: 10px; max-height: 420px; overflow-y: auto; }
+
+.threat-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  animation: row-in 0.25s ease;
+}
+@keyframes row-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+.threat-row .sev-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.threat-row .sev-dot.Critical { background: var(--critical); box-shadow: 0 0 8px var(--critical); }
+.threat-row .sev-dot.High { background: var(--high); box-shadow: 0 0 8px var(--high); }
+.threat-row .sev-dot.Medium { background: var(--medium); }
+.threat-row .sev-dot.Low { background: var(--low); }
+
+.threat-row .threat-main { flex: 1; min-width: 0; }
+.threat-row .threat-type { font-size: 13px; font-weight: 600; color: var(--text); }
+.threat-row .threat-meta { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); margin-top: 2px; }
+.threat-row .threat-score { font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--accent); }
+
+.gauge-row { display: flex; flex-direction: column; gap: 14px; }
+.gauge-item .gauge-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+.gauge-item .gauge-label span:last-child { font-family: var(--font-mono); color: var(--accent); }
+.gauge-track { height: 8px; background: var(--surface-alt); border-radius: 6px; overflow: hidden; border: 1px solid var(--border-soft); }
+.gauge-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); border-radius: 6px; transition: width 0.4s ease; }
+.gauge-fill.warn { background: linear-gradient(90deg, #c47a12, var(--medium)); }
+.gauge-fill.danger { background: linear-gradient(90deg, #b0203a, var(--critical)); }
+
+.live-feed-wrap { max-height: 340px; overflow-y: auto; }
+
+.map-legend { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); margin-top: 10px; }
+.map-legend span { display: flex; align-items: center; gap: 5px; }
+.map-legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }

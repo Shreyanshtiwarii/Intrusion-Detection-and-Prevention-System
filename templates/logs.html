@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% set active_page = "logs" %}
+{% block title %}Logs - CyberShield{% endblock %}
+{% block page_title %}Logs{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>System &amp; Security Logs</h1>
+    <p>Search, filter, and export packet, alert, block, and system logs</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="filters-bar">
+    <select class="form-control" id="logSourceSelect">
+      <option value="system">System Logs</option>
+      <option value="alerts">Alert Logs</option>
+      <option value="packets">Packet Logs</option>
+      <option value="blocked_ips">Blocked IP Logs</option>
+    </select>
+    <input type="text" class="form-control" id="logSearchInput" placeholder="Search logs...">
+    <button class="btn btn-primary" id="logSearchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    <div style="flex:1;"></div>
+    <button class="btn" id="exportCsvBtn"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+    <button class="btn" id="exportPdfBtn"><i class="fa-solid fa-file-pdf"></i> Export PDF</button>
+  </div>
+
+  <div class="table-wrap">
+    <table class="data-table" id="logsTable">
+      <thead><tr id="logsTableHead"></tr></thead>
+      <tbody id="logsTableBody">
+        <tr><td><div class="empty-state"><i class="fa-solid fa-list-check"></i>Loading logs...</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination" id="logsPagination"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/logs.js') }}"></script>
+{% endblock %}

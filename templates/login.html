@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - CyberShield IDS/IPS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body class="login-body">
+<div class="login-scan"></div>
+
+<div class="login-card">
+  <div class="login-header">
+    <div class="login-brand-mark"><i class="fa-solid fa-shield-halved"></i></div>
+    <h1>CyberShield IDS/IPS</h1>
+    <p>Secure Operations Console</p>
+  </div>
+
+  <div class="login-error" id="loginError"></div>
+
+  <form id="loginForm">
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input type="text" class="form-control" id="username" name="username" autocomplete="username" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+      <i class="fa-solid fa-lock"></i> Sign In
+    </button>
+  </form>
+
+  <div class="login-hint">Default credentials: <span class="mono">admin</span> / <span class="mono">admin123</span></div>
+  <div class="login-footer-note">AI ASSISTED REAL-TIME INTRUSION DETECTION &amp; PREVENTION</div>
+</div>
+
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

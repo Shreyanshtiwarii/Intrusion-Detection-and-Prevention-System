@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Not Found - CyberShield</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<style>
+  body { display:flex; align-items:center; justify-content:center; min-height:100vh; flex-direction:column; gap:16px; }
+  h1 { font-family: var(--font-display); color: var(--accent); font-size: 64px; margin:0; }
+</style>
+</head>
+<body>
+  <i class="fa-solid fa-satellite-dish" style="font-size:40px;color:var(--text-dim)"></i>
+  <h1>404</h1>
+  <p class="text-muted">Signal lost -- this page does not exist.</p>
+  <a href="/" class="btn btn-primary">Return to Console</a>
+</body>
+</html>

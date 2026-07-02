@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% set active_page = "dashboard" %}
+{% block title %}Dashboard - CyberShield{% endblock %}
+{% block page_title %}Live SOC Dashboard{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">{% endblock %}
+
+{% block content %}
+<div class="grid grid-4">
+  <div class="card stat-card">
+    <div class="stat-label"><i class="fa-solid fa-boxes-packing"></i> Packets Captured</div>
+    <div class="stat-value accent" id="statPackets">0</div>
+    <div class="stat-sub" id="statPacketsSub">Live capture session</div>
+    <i class="fa-solid fa-tower-broadcast stat-icon"></i>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-label"><i class="fa-solid fa-bug"></i> Threats Detected</div>
+    <div class="stat-value critical" id="statThreats">0</div>
+    <div class="stat-sub" id="statThreatsSub">Since server start</div>
+    <i class="fa-solid fa-radiation stat-icon"></i>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-label"><i class="fa-solid fa-ban"></i> IPs Blocked</div>
+    <div class="stat-value" id="statBlocked">0</div>
+    <div class="stat-sub">Currently active blocks</div>
+    <i class="fa-solid fa-fingerprint stat-icon"></i>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-label"><i class="fa-solid fa-microchip"></i> System Load</div>
+    <div class="stat-value" id="statCpu">0%</div>
+    <div class="stat-sub">CPU utilization</div>
+    <i class="fa-solid fa-server stat-icon"></i>
+  </div>
+</div>
+
+<div class="dash-grid">
+  <div class="flex" style="flex-direction:column; gap:18px;">
+    <div class="card chart-card">
+      <div class="card-header">
+        <span class="card-title">Traffic by Protocol</span>
+        <span class="badge badge-accent" id="protocolTotal">0 pkts</span>
+      </div>
+      <canvas id="protocolChart"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Threat Severity Breakdown</span>
+      </div>
+      <canvas id="severityChart"></canvas>
+    </div>
+  </div>
+
+  <div class="flex" style="flex-direction:column; gap:18px;">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">System Resources</span>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-item">
+          <div class="gauge-label"><span>CPU</span><span id="cpuPct">0%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" id="cpuFill" style="width:0%"></div></div>
+        </div>
+        <div class="gauge-item">
+          <div class="gauge-label"><span>Memory</span><span id="memPct">0%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" id="memFill" style="width:0%"></div></div>
+        </div>
+        <div class="gauge-item">
+          <div class="gauge-label"><span>Disk</span><span id="diskPct">0%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" id="diskFill" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="flex:1;">
+      <div class="card-header">
+        <span class="card-title">Live Threat Feed</span>
+        <button class="btn btn-sm" onclick="location.href='{{ url_for('alerts.alerts_page') }}'">View All</button>
+      </div>
+      <div class="threat-feed" id="liveThreatFeed">
+        <div class="empty-state"><i class="fa-solid fa-shield"></i>Awaiting activity...</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}CyberShield IDS/IPS{% endblock %}</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="brand-text">
+        <span class="brand-name">CyberShield</span>
+        <span class="brand-sub">IDS / IPS</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Monitor</div>
+      <div class="nav-item {{ 'active' if active_page == 'dashboard' else '' }}" onclick="location.href='{{ url_for('dashboard.dashboard_page') }}'">
+        <i class="fa-solid fa-gauge-high"></i> Dashboard
+      </div>
+      <div class="nav-item {{ 'active' if active_page == 'packets' else '' }}" onclick="location.href='{{ url_for('packets.packets_page') }}'">
+        <i class="fa-solid fa-network-wired"></i> Packet Capture
+      </div>
+      <div class="nav-item {{ 'active' if active_page == 'alerts' else '' }}" onclick="location.href='{{ url_for('alerts.alerts_page') }}'">
+        <i class="fa-solid fa-triangle-exclamation"></i> Threat Alerts
+      </div>
+
+      <div class="nav-section-label">Prevention</div>
+      <div class="nav-item {{ 'active' if active_page == 'ips' else '' }}" onclick="location.href='{{ url_for('ips.ips_management_page') }}'">
+        <i class="fa-solid fa-ban"></i> IP Blocklist
+      </div>
+      <div class="nav-item {{ 'active' if active_page == 'fim' else '' }}" onclick="location.href='{{ url_for('fim.fim_page') }}'">
+        <i class="fa-solid fa-file-shield"></i> File Integrity
+      </div>
+
+      <div class="nav-section-label">Records</div>
+      <div class="nav-item {{ 'active' if active_page == 'logs' else '' }}" onclick="location.href='{{ url_for('logs.logs_page') }}'">
+        <i class="fa-solid fa-list-check"></i> Logs
+      </div>
+      <div class="nav-item {{ 'active' if active_page == 'reports' else '' }}" onclick="location.href='{{ url_for('reports.reports_page') }}'">
+        <i class="fa-solid fa-file-pdf"></i> Reports
+      </div>
+
+      <div class="nav-section-label">System</div>
+      <div class="nav-item {{ 'active' if active_page == 'settings' else '' }}" onclick="location.href='{{ url_for('settings.settings_page') }}'">
+        <i class="fa-solid fa-sliders"></i> Settings
+      </div>
+      <div class="nav-item" onclick="location.href='{{ url_for('auth.logout') }}'">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      CyberShield v1.0<br>Real-Time SOC Console
+    </div>
+  </aside>
+
+  <div class="main-column">
+    <header class="navbar">
+      <div class="flex gap-16" style="align-items:center;">
+        <div class="icon-btn sidebar-toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></div>
+        <div class="navbar-title">{% block page_title %}Dashboard{% endblock %}</div>
+      </div>
+      <div class="navbar-right">
+        <div class="status-pill">
+          <span class="status-dot blink" id="monitorStatusDot"></span>
+          <span id="monitorStatusText">Monitoring Active</span>
+        </div>
+        <div class="icon-btn" id="soundToggleBtn" title="Toggle notification sound">
+          <i class="fa-solid fa-volume-high" id="soundIcon"></i>
+        </div>
+        <div class="navbar-user">
+          <div class="avatar">{{ session.get('username', 'A')[0]|upper }}</div>
+          <span>{{ session.get('username', 'admin') }}</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<audio id="alertSound" preload="auto" src="{{ url_for('static', filename='sounds/alert.wav') }}"></audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.3/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

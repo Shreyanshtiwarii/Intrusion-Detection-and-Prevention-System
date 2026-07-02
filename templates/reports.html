@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% set active_page = "reports" %}
+{% block title %}Reports - CyberShield{% endblock %}
+{% block page_title %}Reports{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Security Reports</h1>
+    <p>Generate PDF summaries of threats, blocks, and traffic</p>
+  </div>
+</div>
+
+<div class="grid grid-3 mb-16">
+  <div class="card">
+    <div class="card-header"><span class="card-title">Daily Report</span><i class="fa-solid fa-calendar-day" style="color:var(--accent)"></i></div>
+    <p class="text-muted" style="font-size:12.5px;">Summarizes today's threats and activity.</p>
+    <button class="btn btn-primary btn-block" data-report-type="Daily">Generate</button>
+  </div>
+  <div class="card">
+    <div class="card-header"><span class="card-title">Weekly Report</span><i class="fa-solid fa-calendar-week" style="color:var(--accent)"></i></div>
+    <p class="text-muted" style="font-size:12.5px;">Summarizes this week's threats and activity.</p>
+    <button class="btn btn-primary btn-block" data-report-type="Weekly">Generate</button>
+  </div>
+  <div class="card">
+    <div class="card-header"><span class="card-title">Monthly Report</span><i class="fa-solid fa-calendar" style="color:var(--accent)"></i></div>
+    <p class="text-muted" style="font-size:12.5px;">Summarizes this month's threats and activity.</p>
+    <button class="btn btn-primary btn-block" data-report-type="Monthly">Generate</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-title">Generated Reports</span></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Type</th><th>Period</th><th>Alerts</th><th>Blocked</th><th>Packets</th><th>Generated</th><th>Download</th></tr></thead>
+      <tbody id="reportsTableBody">
+        <tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-file-pdf"></i>No reports generated yet</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/reports.js') }}"></script>
+{% endblock %}

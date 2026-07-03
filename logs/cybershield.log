@@ -4523,3 +4523,8 @@
 2026-07-03 05:40:30,024 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/app.py
 2026-07-03 05:40:30,030 [INFO] [file_integrity] File integrity monitor started
 2026-07-03 05:40:30,035 [INFO] [app] CyberShield background services started
+2026-07-03 05:51:11,528 [INFO] [system_monitor] System monitor started
+2026-07-03 05:51:11,619 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/config.py
+2026-07-03 05:51:11,636 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/app.py
+2026-07-03 05:51:11,640 [INFO] [file_integrity] File integrity monitor started
+2026-07-03 05:51:11,644 [INFO] [app] CyberShield background services started

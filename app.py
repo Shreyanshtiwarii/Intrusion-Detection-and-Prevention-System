@@ -40,7 +40,7 @@ def create_app():
     init_logger(app)
     init_db(app)
 
-    socketio = SocketIO(app, async_mode="eventlet", cors_allowed_origins="*")
+    socketio = SocketIO(app, async_mode="gevent", cors_allowed_origins="*")
     register_socketio(socketio)
 
     # ------------------------------------------------------------------

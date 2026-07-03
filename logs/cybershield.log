@@ -4528,3 +4528,10 @@
 2026-07-03 05:51:11,636 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/app.py
 2026-07-03 05:51:11,640 [INFO] [file_integrity] File integrity monitor started
 2026-07-03 05:51:11,644 [INFO] [app] CyberShield background services started
+2026-07-03 06:11:33,543 [INFO] [packet_capture] Raw socket access confirmed — using live packet capture
+2026-07-03 06:11:34,486 [INFO] [system_monitor] System monitor started
+2026-07-03 06:11:34,536 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/app.py
+2026-07-03 06:11:34,543 [INFO] [file_integrity] File integrity monitor started
+2026-07-03 06:11:35,143 [INFO] [packet_capture] Packet sniffer started
+2026-07-03 06:11:35,153 [INFO] [app] CyberShield background services started
+2026-07-03 06:11:37,159 [INFO] [packet_capture] Packet sniffer stopped

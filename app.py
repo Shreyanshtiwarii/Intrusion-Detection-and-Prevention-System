@@ -156,11 +156,10 @@ def start_background_services(app, engines):
     engines["system_monitor"].start()
     engines["fim"].start()
 
-    auto_start_capture = os.environ.get("AUTO_START_CAPTURE", "true").lower() == "true"
-    if auto_start_capture:
-        ok, message = engines["sniffer"].start()
-        if not ok:
-            log_event(f"Auto-start capture skipped: {message}", level="WARNING", source="app")
+    # Always start — on cloud, SimulatedPacketSniffer kicks in automatically
+    ok, message = engines["sniffer"].start()
+    if not ok:
+        log_event(f"Auto-start capture skipped: {message}", level="WARNING", source="app")
 
     def run_scheduler():
         schedule.every(1).minutes.do(engines["ips_engine"].expire_stale_blocks)

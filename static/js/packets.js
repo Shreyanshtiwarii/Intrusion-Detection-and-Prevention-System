@@ -47,7 +47,10 @@ async function loadSnifferStatus() {
     const d = res.data;
     document.getElementById("pcStatus").textContent = d.running ? "RUNNING" : "STOPPED";
     document.getElementById("pcStatus").style.color = d.running ? "var(--low)" : "var(--critical)";
-    document.getElementById("pcInterface").textContent = d.interface || "default";
+    const iface = d.mode === "simulation"
+      ? (d.interface || "eth0") + " ⟳ simulated"
+      : (d.interface || "default");
+    document.getElementById("pcInterface").textContent = iface;
     document.getElementById("pcTotal").textContent = d.total_packets.toLocaleString();
     const protos = Object.entries(d.protocol_counts).filter(([, v]) => v > 0).map(([k]) => k);
     document.getElementById("pcProtocols").textContent = protos.length ? protos.join(", ") : "--";

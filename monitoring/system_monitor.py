@@ -1,10 +1,13 @@
 """
-Background system resource monitor. Polls CPU / RAM / Disk usage with psutil
-and broadcasts snapshots to the dashboard over SocketIO on a fixed interval.
+Background system resource monitor.
+
+Polls CPU / RAM / Disk usage with psutil and broadcasts snapshots to the
+dashboard over SocketIO every interval_seconds. Works with both threading
+and gevent async modes.
 """
 
-import threading
 import time
+import threading
 import psutil
 
 from utils.logger import log_event
@@ -32,33 +35,42 @@ class SystemMonitor:
     def stop(self):
         self._stop_event.set()
         self.running = False
-        log_event("System monitor stopped", level="INFO", source="system_monitor")
 
     def _loop(self):
-        # Prime psutil's internal CPU sample window
+        # Prime psutil CPU sample window
         psutil.cpu_percent(interval=None)
+        time.sleep(0.5)
+
         while not self._stop_event.is_set():
             try:
                 snapshot = self._collect()
                 self.latest_snapshot = snapshot
-                if self.socketio:
-                    self.socketio.emit("system_stats", snapshot)
-            except Exception as exc:  # noqa: BLE001
+                # Emit via socketio — works with both threading and gevent modes
+                try:
+                    self.socketio.emit("system_stats", snapshot, namespace="/")
+                except Exception:
+                    # Fallback without namespace
+                    try:
+                        self.socketio.emit("system_stats", snapshot)
+                    except Exception as e:
+                        log_event(f"system_stats emit error: {e}", level="WARNING", source="system_monitor")
+            except Exception as exc:
                 log_event(f"System monitor error: {exc}", level="ERROR", source="system_monitor")
-            time.sleep(self.interval_seconds)
+
+            # Use stop_event.wait so we can be interrupted cleanly
+            self._stop_event.wait(timeout=self.interval_seconds)
 
     def _collect(self):
-        cpu_percent = psutil.cpu_percent(interval=None)
+        cpu = psutil.cpu_percent(interval=None)
         mem = psutil.virtual_memory()
         disk = psutil.disk_usage("/")
         net = psutil.net_io_counters()
-
         return {
-            "cpu_percent": cpu_percent,
-            "memory_percent": mem.percent,
+            "cpu_percent": round(cpu, 1),
+            "memory_percent": round(mem.percent, 1),
             "memory_used_gb": round(mem.used / (1024 ** 3), 2),
             "memory_total_gb": round(mem.total / (1024 ** 3), 2),
-            "disk_percent": disk.percent,
+            "disk_percent": round(disk.percent, 1),
             "disk_used_gb": round(disk.used / (1024 ** 3), 2),
             "disk_total_gb": round(disk.total / (1024 ** 3), 2),
             "bytes_sent": net.bytes_sent,
@@ -67,4 +79,6 @@ class SystemMonitor:
         }
 
     def get_snapshot(self):
-        return self.latest_snapshot or self._collect()
+        if self.latest_snapshot:
+            return self.latest_snapshot
+        return self._collect()

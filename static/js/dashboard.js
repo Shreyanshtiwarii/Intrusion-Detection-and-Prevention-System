@@ -91,6 +91,12 @@ async function loadDashboardSummary() {
     document.getElementById("statCpu").textContent = `${Math.round(d.system.cpu_percent || 0)}%`;
     document.getElementById("protocolTotal").textContent = `${d.sniffer.total_packets.toLocaleString()} pkts`;
 
+    // Show simulation mode badge if applicable
+    if (d.sniffer.mode === "simulation") {
+      const sub = document.getElementById("statPacketsSub");
+      if (sub) sub.textContent = "Simulation mode (cloud)";
+    }
+
     updateProtocolChart(d.sniffer.protocol_counts);
     updateSystemGauges(d.system);
 

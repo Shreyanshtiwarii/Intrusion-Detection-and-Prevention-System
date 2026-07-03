@@ -4507,3 +4507,19 @@
 2026-07-02 18:26:34,482 [INFO] [file_integrity] File integrity monitor started
 2026-07-02 18:26:34,491 [INFO] [app] CyberShield background services started
 2026-07-02 18:26:34,631 [INFO] [auth] User 'admin' logged in from 127.0.0.1
+2026-07-03 05:39:23,862 [INFO] [system_monitor] System monitor started
+2026-07-03 05:39:24,238 [INFO] [file_integrity] File integrity monitor started
+2026-07-03 05:39:24,247 [INFO] [app] CyberShield background services started
+2026-07-03 05:39:47,167 [INFO] [system_monitor] System monitor started
+2026-07-03 05:39:47,196 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/config.py
+2026-07-03 05:39:47,212 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/app.py
+2026-07-03 05:39:47,217 [INFO] [file_integrity] File integrity monitor started
+2026-07-03 05:39:47,221 [INFO] [app] CyberShield background services started
+2026-07-03 05:39:59,960 [INFO] [system_monitor] System monitor started
+2026-07-03 05:39:59,992 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/app.py
+2026-07-03 05:39:59,999 [INFO] [file_integrity] File integrity monitor started
+2026-07-03 05:40:00,004 [INFO] [app] CyberShield background services started
+2026-07-03 05:40:29,993 [INFO] [system_monitor] System monitor started
+2026-07-03 05:40:30,024 [CRITICAL] [file_integrity] FIM: File Modified - /home/claude/cybershield/CyberShield_IDS_IPS/app.py
+2026-07-03 05:40:30,030 [INFO] [file_integrity] File integrity monitor started
+2026-07-03 05:40:30,035 [INFO] [app] CyberShield background services started

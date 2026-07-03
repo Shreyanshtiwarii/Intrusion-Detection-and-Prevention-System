@@ -66,7 +66,7 @@ class Config:
     LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
 
     # --- SocketIO ---
-    SOCKETIO_ASYNC_MODE = os.environ.get("SOCKETIO_ASYNC_MODE", "threading")
+    SOCKETIO_ASYNC_MODE = os.environ.get("SOCKETIO_ASYNC_MODE", "eventlet")
 
 
 class DevelopmentConfig(Config):

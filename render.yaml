@@ -2,8 +2,9 @@ services:
   - type: web
     name: cybershield-ids-ips
     env: python
+    runtime: python311
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn --worker-class eventlet -w 1 --bind 0.0.0.0:$PORT app:app
+    startCommand: gunicorn --worker-class geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 --bind 0.0.0.0:$PORT wsgi:app
     envVars:
       - key: SECRET_KEY
         generateValue: true
@@ -19,5 +20,5 @@ services:
         value: admin123
       - key: LOG_LEVEL
         value: INFO
-      - key: SOCKETIO_ASYNC_MODE
-        value: eventlet
+      - key: PYTHON_VERSION
+        value: "3.11.9"
